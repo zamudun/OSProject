@@ -411,9 +411,12 @@ docker run --detach -v /workspaces/OSProject/webpage:/usr/local/apache2/htdocs/ 
 
 ***Questions:***
 
-1. What is the permission of folder /usr/local/apache/htdocs and what user and group owns the folder? . ***(2 mark)*** __Fill answer here__.
-2. What port is the apache web server running. ***(1 mark)*** __Fill answer here__.
-3. What port is open for http protocol on the host machine? ***(1 mark)*** __Fill answer here__.
+1. What is the permission of folder /usr/local/apache/htdocs and what user and group owns the folder? . ***(2 mark)*** 
+  Owned by user:root, group:root
+2. What port is the apache web server running. ***(1 mark)***
+  80
+3. What port is open for http protocol on the host machine? ***(1 mark)*** 
+  8080
 
 ## Create SUB Networks
 
@@ -432,13 +435,24 @@ docker run -itd --net rednet --name c2 busybox sh
 ```
 ***Questions:***
 
-1. Describe what is busybox and what is command switch **--name** is for? . ***(2 mark)*** __Fill answer here__.
-2. Explore the network using the command ```docker network ls```, show the output of your terminal. ***(1 mark)*** __Fill answer here__.
-3. Using ```docker inspect c1``` and ```docker inspect c2``` inscpect the two network. What is the gateway of bluenet and rednet.? ***(1 mark)*** __Fill answer here__.
-4. What is the network address for the running container c1 and c2? ***(1 mark)*** __Fill answer here__.
-5. Using the command ```docker exec c1 ping c2```, which basically tries to do a ping from container c1 to c2. Are you able to ping? Show your output . ***(1 mark)*** __Fill answer here__.
-
-sss
+1. Describe what is busybox and what is command switch **--name** is for? . ***(2 mark)*** 
+  BusyBox is a lightweight Linux utility that provides essential Unix commands in a single binary. The --name flag assigns a custom name to a Docker container.
+2. Explore the network using the command ```docker network ls```, show the output of your terminal. ***(1 mark)*** 
+NETWORK ID     NAME      DRIVER    SCOPE
+0076c8a8a7e7   bluenet   bridge    local
+6b912d08b54a   bridge    bridge    local
+1ec4bc882fb4   host      host      local
+82507c3b9923   none      null      local
+1110a59609eb   rednet    bridge    local
+3. Using ```docker inspect c1``` and ```docker inspect c2``` inscpect the two network. What is the gateway of bluenet and rednet.? ***(1 mark)*** 
+  bluenet : 172.18.0.1
+  rednet : 172.19.0.1
+4. What is the network address for the running container c1 and c2? ***(1 mark)***
+  bluenet : 172.18.0.2
+  rednet : 172.19.0.2
+5. Using the command ```docker exec c1 ping c2```, which basically tries to do a ping from container c1 to c2. Are you able to ping? Show your output . ***(1 mark)*** 
+  no.
+  The output: ping: bad address 'c2'
 
 ## Bridging two SUB Networks
 1. Let's try this again by creating a network to bridge the two containers in the two subnetworks
@@ -450,8 +464,60 @@ docker exec c1 ping c2
 ```
 ***Questions:***
 
-1. Are you able to ping? Show your output . ***(1 mark)*** __Fill answer here__.
-2. What is different from the previous ping in the section above? ***(1 mark)*** __Fill answer here__.
+1. Are you able to ping? Show your output . ***(1 mark)*** 
+  yes.
+  PING c2 (172.20.0.3): 56 data bytes
+64 bytes from 172.20.0.3: seq=0 ttl=64 time=0.125 ms
+64 bytes from 172.20.0.3: seq=1 ttl=64 time=0.062 ms
+64 bytes from 172.20.0.3: seq=2 ttl=64 time=0.069 ms
+64 bytes from 172.20.0.3: seq=3 ttl=64 time=0.072 ms
+64 bytes from 172.20.0.3: seq=4 ttl=64 time=0.067 ms
+64 bytes from 172.20.0.3: seq=5 ttl=64 time=0.078 ms
+64 bytes from 172.20.0.3: seq=6 ttl=64 time=0.083 ms
+64 bytes from 172.20.0.3: seq=7 ttl=64 time=0.080 ms
+64 bytes from 172.20.0.3: seq=8 ttl=64 time=0.077 ms
+64 bytes from 172.20.0.3: seq=9 ttl=64 time=0.088 ms
+64 bytes from 172.20.0.3: seq=10 ttl=64 time=0.057 ms
+64 bytes from 172.20.0.3: seq=11 ttl=64 time=0.071 ms
+64 bytes from 172.20.0.3: seq=12 ttl=64 time=0.073 ms
+64 bytes from 172.20.0.3: seq=13 ttl=64 time=0.075 ms
+64 bytes from 172.20.0.3: seq=14 ttl=64 time=0.070 ms
+64 bytes from 172.20.0.3: seq=15 ttl=64 time=0.076 ms
+64 bytes from 172.20.0.3: seq=16 ttl=64 time=0.068 ms
+64 bytes from 172.20.0.3: seq=17 ttl=64 time=0.063 ms
+64 bytes from 172.20.0.3: seq=18 ttl=64 time=0.068 ms
+64 bytes from 172.20.0.3: seq=19 ttl=64 time=0.069 ms
+64 bytes from 172.20.0.3: seq=20 ttl=64 time=0.068 ms
+64 bytes from 172.20.0.3: seq=21 ttl=64 time=0.085 ms
+64 bytes from 172.20.0.3: seq=22 ttl=64 time=0.080 ms
+64 bytes from 172.20.0.3: seq=23 ttl=64 time=0.072 ms
+64 bytes from 172.20.0.3: seq=24 ttl=64 time=0.078 ms
+64 bytes from 172.20.0.3: seq=25 ttl=64 time=0.074 ms
+64 bytes from 172.20.0.3: seq=26 ttl=64 time=0.072 ms
+64 bytes from 172.20.0.3: seq=27 ttl=64 time=0.085 ms
+64 bytes from 172.20.0.3: seq=28 ttl=64 time=0.071 ms
+64 bytes from 172.20.0.3: seq=29 ttl=64 time=0.068 ms
+64 bytes from 172.20.0.3: seq=30 ttl=64 time=0.086 ms
+64 bytes from 172.20.0.3: seq=31 ttl=64 time=0.073 ms
+64 bytes from 172.20.0.3: seq=32 ttl=64 time=0.062 ms
+64 bytes from 172.20.0.3: seq=33 ttl=64 time=0.085 ms
+64 bytes from 172.20.0.3: seq=34 ttl=64 time=0.077 ms
+64 bytes from 172.20.0.3: seq=35 ttl=64 time=0.082 ms
+64 bytes from 172.20.0.3: seq=36 ttl=64 time=0.076 ms
+64 bytes from 172.20.0.3: seq=37 ttl=64 time=0.078 ms
+64 bytes from 172.20.0.3: seq=38 ttl=64 time=0.075 ms
+64 bytes from 172.20.0.3: seq=39 ttl=64 time=0.079 ms
+64 bytes from 172.20.0.3: seq=40 ttl=64 time=0.076 ms
+64 bytes from 172.20.0.3: seq=41 ttl=64 time=0.124 ms
+64 bytes from 172.20.0.3: seq=42 ttl=64 time=0.073 ms
+64 bytes from 172.20.0.3: seq=43 ttl=64 time=0.091 ms
+64 bytes from 172.20.0.3: seq=44 ttl=64 time=0.082 ms
+64 bytes from 172.20.0.3: seq=45 ttl=64 time=0.083 ms
+64 bytes from 172.20.0.3: seq=46 ttl=64 time=0.057 ms
+
+2. What is different from the previous ping in the section above? ***(1 mark)*** 
+Previously, c1 and c2 were in separate networks (bluenet and rednet), so they couldn't communicate.
+Now, they are both connected to an additional shared network (bridgenet), allowing communication.
 
 ## Intermediate Level (10 marks bonus)
 
