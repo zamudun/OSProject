@@ -18,11 +18,16 @@ Team Mates:
 1. What is the link of the fork OSProject in your repository. 
   https://github.com/zamudun/OSProject
 2. How many files and folders are in this repository.  
- 1
+ ```bash
+  1
+ ```
 3. What is default OS used to run the virtual environment for codespaces. 
  Linux
 4. What are the two options of ram, disk and vcpu configuration you can have in running codespaces . 
-  2 core: 8GB ram 32GB disk. / 4 core: 16GB ram 32GB disk.
+```bash
+  2 core: 8GB ram 32GB disk. 
+  4 core: 16GB ram 32GB disk.
+```
 5. Why must we commit and sync our current work on source control? 
   To ensure the changes are saved and accessible to different team members.
 
