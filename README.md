@@ -438,6 +438,8 @@ docker run -itd --net rednet --name c2 busybox sh
 4. What is the network address for the running container c1 and c2? ***(1 mark)*** __Fill answer here__.
 5. Using the command ```docker exec c1 ping c2```, which basically tries to do a ping from container c1 to c2. Are you able to ping? Show your output . ***(1 mark)*** __Fill answer here__.
 
+sss
+
 ## Bridging two SUB Networks
 1. Let's try this again by creating a network to bridge the two containers in the two subnetworks
 ```
